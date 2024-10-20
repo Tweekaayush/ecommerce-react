@@ -10,7 +10,6 @@ const Account = () => {
   return (
     <>
         <Profile/>  
-        <OrderHistoryPrev/>
     </>
   )
 }

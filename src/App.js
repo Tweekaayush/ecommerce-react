@@ -9,7 +9,7 @@ import Footer from './components/Layout/Footer';
 import Cart from './components/Cart';
 import Loader from './components/Loader';
 import { auth, onAuthStateChanged } from './config/firebase';
-import { setUser } from './features/userSlice';
+import { getUserDetails, setUser } from './features/userSlice';
 import PrivateRoutes from './components/PrivateRoutes'
 import Account from './pages/Account';
 const Home = lazy(() => import('./pages/Home'))
@@ -36,7 +36,7 @@ function App() {
   useEffect(()=>{
     onAuthStateChanged(auth, async(user)=>{
       if(user){
-        dispatch(setUser({
+        dispatch(getUserDetails({
           uid: user.uid,
           username: user.displayName,
           email: user.email,

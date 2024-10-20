@@ -1,18 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import {Favorite, ShoppingCart} from '@mui/icons-material';
 import { Rating } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice';
+import { addToWishlist } from '../features/userSlice';
 
 const ProductContent = ({title, description, price, ratings, img, otherImgs, id}) => {
 
     const dispatch = useDispatch()
     const [quantity, setQuantity] = useState(1)
     const [displayImg, setDisplayImg] = useState(img)
+    const {wishlist} = useSelector(state=>state.user)
+    const [inWishlist,  setInWishlist] = useState(false)
+
+    const checkWishlist = () =>{
+        const found = wishlist?.find((product)=>product.id === id)
+        if(found != undefined){
+            setInWishlist(true)
+        }
+        else{
+            setInWishlist(false)
+        }
+    }
 
     useEffect(()=>{
         setDisplayImg(img)
     }, [img])
+
+    useEffect(()=>{
+
+        checkWishlist()
+    }, [wishlist])
+
+    useEffect(()=>{
+        checkWishlist()
+    }, [])
 
   return (
     <section id="product-content">
@@ -55,7 +77,7 @@ const ProductContent = ({title, description, price, ratings, img, otherImgs, id}
                 </div>
                 <div className="product-btns">
                     <button onClick={()=>dispatch(addToCart({id: id, title: title, price: price, ratings:ratings, img:img, quantity: quantity }))}> <ShoppingCart/> Add to cart</button>
-                    <button> <Favorite/> wishlist</button>
+                    <button className={inWishlist?'product-in-wishlist':''} onClick={()=>dispatch(addToWishlist({id: id, title: title, price: price, ratings:ratings, img:img }))}> <Favorite/> wishlist</button>
                 </div>
             </div>
         </div>

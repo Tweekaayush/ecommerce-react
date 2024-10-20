@@ -4,6 +4,7 @@ import { Rating } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../features/cartSlice'
 import { Close } from '@mui/icons-material'
+import { removeFromWishlist } from '../features/userSlice'
 
 const ProductCard3 = ({img, title, price, ratings, id}) => {
     const navigate = useNavigate()
@@ -11,7 +12,7 @@ const ProductCard3 = ({img, title, price, ratings, id}) => {
 
   return (
     <div className="product-card" onClick={()=>navigate(`/product/${id}`)}>
-        <Close className='product-class-close'/>
+        <Close className='product-class-close' onClick={()=>dispatch(removeFromWishlist(id))}/>
         <div className="product-card-head">
             <img src={img} alt={title} className='product-card-img2'/>
         </div>

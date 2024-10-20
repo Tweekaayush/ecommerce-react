@@ -45,8 +45,7 @@ export const getProductDetails = createAsyncThunk('getProductDetails', async (id
     snapshot.forEach((doc)=>{
         items = [...items, {id: doc.id, ...doc.data()}]
     })
-
-    console.log(items.find((product)=>product.id === id))
+    
     return items.find((product)=>product.id === id)
 })
 

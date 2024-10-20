@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { signInWithPopup, auth, provider } from '../config/firebase'
-import { setUser } from '../features/userSlice'
+import { getUserDetails } from '../features/userSlice'
 
 const Login = () => {
 
@@ -12,7 +12,7 @@ const Login = () => {
     
     const handleGoogleAuth = () =>{
         signInWithPopup(auth, provider).then((user)=>{
-            dispatch(setUser({
+            dispatch(getUserDetails({
                 uid: user.uid,
                 name: user.displayName,
                 email: user.email,
