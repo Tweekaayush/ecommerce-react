@@ -12,6 +12,7 @@ import { auth, onAuthStateChanged } from './config/firebase';
 import { getUserDetails, setUser } from './features/userSlice';
 import PrivateRoutes from './components/PrivateRoutes'
 import Account from './pages/Account';
+import Checkout from './pages/Checkout';
 const Home = lazy(() => import('./pages/Home'))
 const Browse = lazy(() => import('./pages/Browse'));
 const Product = lazy(() => import('./pages/Product'));
@@ -22,7 +23,7 @@ function App() {
 
   const [cartStatus, setCartStatus] = useState(false)
   const dispatch = useDispatch()
-  const {uid} = useSelector(state=>state.user)
+  const {uid} = useSelector(state=>state.user.data)
 
   const handleBodyOverflow = () =>{
     cartStatus ? document.body.classList.add('hidden') : document.body.classList.remove('hidden')
@@ -60,6 +61,7 @@ function App() {
           <Route exact path='/login' element={<Login />} />
           <Route element={<PrivateRoutes/>}>
             <Route exact path='/account' element={<Account/>} />
+            <Route exact path='/checkout' element={<Checkout/>} />
           </Route>
         </Routes>
       </Suspense>

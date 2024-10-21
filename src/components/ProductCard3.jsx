@@ -2,17 +2,17 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Rating } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import { addToCart } from '../features/cartSlice'
 import { Close } from '@mui/icons-material'
-import { removeFromWishlist } from '../features/userSlice'
+import { moveToCart, removeFromWishlist } from '../features/userSlice'
 
-const ProductCard3 = ({img, title, price, ratings, id}) => {
+const ProductCard3 = ({product}) => {
+    const {img, title, price, ratings, id} = product
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
   return (
     <div className="product-card" onClick={()=>navigate(`/product/${id}`)}>
-        <Close className='product-class-close' onClick={()=>dispatch(removeFromWishlist(id))}/>
+        <Close className='product-class-close' onClick={(e)=>[e.stopPropagation(), dispatch(removeFromWishlist(id))]}/>
         <div className="product-card-head">
             <img src={img} alt={title} className='product-card-img2'/>
         </div>
@@ -25,7 +25,7 @@ const ProductCard3 = ({img, title, price, ratings, id}) => {
             <p>Rs. {price}</p>
             <button 
                 className="section-btn"
-                onClick={(e)=>[e.stopPropagation(), dispatch(addToCart({id: id, title: title, price: price, ratings:ratings, img:img, quantity: 1}))]}
+                onClick={(e)=>[e.stopPropagation(), dispatch(moveToCart({...product, quantity: 1}))]}
             >
                 Move To Cart
             </button>

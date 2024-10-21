@@ -12,7 +12,7 @@ const Cart = ({cartStatus, setCartStatus}) => {
     
     const handleRedirect = () =>{
         setCartStatus(false)
-        navigate('/')
+        navigate('/checkout')
     }
   return (
     <div id="cart" className={cartStatus?'cart-active':''}>

@@ -18,8 +18,8 @@ const Product = () => {
     }, [id])
   return (
     <>
-        <ProductContent {...productDetails}/>
-        <ProductDetails {...productDetails}/>
+        <ProductContent product = {productDetails}/>
+        <ProductDetails product = {productDetails}/>
         <Trending />
     </>
   )

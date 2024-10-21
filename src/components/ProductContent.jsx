@@ -5,17 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice';
 import { addToWishlist } from '../features/userSlice';
 
-const ProductContent = ({title, description, price, ratings, img, otherImgs, id}) => {
+const ProductContent = ({product}) => {
 
+    const {title, description, price, ratings, img, otherImgs, id} = product
     const dispatch = useDispatch()
     const [quantity, setQuantity] = useState(1)
     const [displayImg, setDisplayImg] = useState(img)
-    const {wishlist} = useSelector(state=>state.user)
+    const {wishlist} = useSelector(state=>state.user.data)
     const [inWishlist,  setInWishlist] = useState(false)
 
     const checkWishlist = () =>{
         const found = wishlist?.find((product)=>product.id === id)
-        if(found != undefined){
+        if(found !== undefined){
             setInWishlist(true)
         }
         else{
@@ -28,13 +29,8 @@ const ProductContent = ({title, description, price, ratings, img, otherImgs, id}
     }, [img])
 
     useEffect(()=>{
-
         checkWishlist()
-    }, [wishlist])
-
-    useEffect(()=>{
-        checkWishlist()
-    }, [])
+    }, [wishlist, id])
 
   return (
     <section id="product-content">
@@ -76,8 +72,8 @@ const ProductContent = ({title, description, price, ratings, img, otherImgs, id}
                     <button onClick={()=>setQuantity(quantity + 1)}>+</button>
                 </div>
                 <div className="product-btns">
-                    <button onClick={()=>dispatch(addToCart({id: id, title: title, price: price, ratings:ratings, img:img, quantity: quantity }))}> <ShoppingCart/> Add to cart</button>
-                    <button className={inWishlist?'product-in-wishlist':''} onClick={()=>dispatch(addToWishlist({id: id, title: title, price: price, ratings:ratings, img:img }))}> <Favorite/> wishlist</button>
+                    <button onClick={()=>dispatch(addToCart({...product, quantity: quantity }))}> <ShoppingCart/> Add to cart</button>
+                    <button disabled={inWishlist} className={inWishlist?'product-in-wishlist':''} onClick={()=>dispatch(addToWishlist({...product}))}> <Favorite/> wishlist</button>
                 </div>
             </div>
         </div>

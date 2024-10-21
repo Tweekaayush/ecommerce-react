@@ -10,7 +10,7 @@ const UserOptions = ({photo}) => {
     
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {uid, profileImg} = useSelector(state=>state.user)
+  const {uid, profileImg} = useSelector(state=>state.user.data)
   const [open, setOpen] = useState(false);
   const options = [
     {

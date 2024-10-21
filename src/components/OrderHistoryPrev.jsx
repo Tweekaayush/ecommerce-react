@@ -41,7 +41,7 @@ const OrderHistoryPrev = () => {
 
   return (
     <div className="order-history-container">
-      <div className="order-history-header">
+      <div className="profile-headings">
         <h1>Order History</h1>
       </div>
       <div className="order-history-table">

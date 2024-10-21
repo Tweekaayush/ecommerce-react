@@ -6,12 +6,18 @@ import { useNavigate } from 'react-router-dom'
 
 const Wishlist = () => {
 
-    const {wishlist} = useSelector(state => state.user)
+    const {wishlist} = useSelector(state => state.user.data)
     const [wishlistLength, setWishlistLength] = useState(0)
     const navigate = useNavigate()
 
     const handleRedirect = () =>{
-        navigate('/login')
+        navigate( '/login',
+            {
+              state: {
+                previousURL: '/wishlist'
+              }
+            }
+        )
     }
 
     useEffect(()=>{
@@ -38,7 +44,7 @@ const Wishlist = () => {
                     <div className="wishlist-grid">
                         {
                             wishlist?.map((product)=>{
-                                return <ProductCard3 key={product.id} {...product}/>
+                                return <ProductCard3 key={product.id} product={product}/>
                             })
                         }
                     </div>

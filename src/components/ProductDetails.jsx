@@ -1,6 +1,7 @@
 import React from 'react'
 
-const ProductDetails = ({size, weight, texture}) => {
+const ProductDetails = ({product}) => {
+    const {size, weight, texture} = product
   return (
     <section id="product-details">
         <div className="product-detail-container">

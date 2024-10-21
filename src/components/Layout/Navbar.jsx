@@ -9,7 +9,7 @@ const Navbar = ({cartStatus, setCartStatus}) => {
   const [scroll, setScroll] = useState(false)
   const navigate = useNavigate()
   const {totalProducts} = useSelector(state=>state.cart)
-  const {uid} = useSelector(state=>state.user)
+  const {uid} = useSelector(state=>state.user.data)
 
   useEffect(()=>{
     const handleScroll = () =>{
