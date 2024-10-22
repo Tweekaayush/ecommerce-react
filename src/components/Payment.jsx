@@ -6,24 +6,30 @@ import { createOrder } from '../features/userSlice'
 
 const Payment = ({order}) => {
 
-  const stripe = useStripe()
+  const stripe = useStripe(process.env.REACT_APP_STRIPE_SECRET_KEY)
   const elements = useElements()
   const payBtn = useRef(null)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const {username, email} = useSelector(state=>state.user.data)
 
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    payBtn.current.disabled = true
+    payBtn.current.disable = true
 
     try{
+
       if(!stripe || !elements) return
 
-      const result = await stripe.confirmCardPayment(process.env.REACT_APP_STRIPE_SECRET_KEY, {
+      var intent = stripe.elements({
+        mode: 'payment',
+        currency: 'inr',
+        amount: order.totalPrice
+      })
+
+      const result = await stripe.confirmCardPayment(intent, {
         payment_method:{
           card: elements.getElement(CardNumberElement),
-          order: {...order}
+          billing_details: {...order}
         }
       })
   
@@ -44,10 +50,10 @@ const Payment = ({order}) => {
       }
     }catch(error){
       payBtn.current.disable = false
-      alert(error.response.data.message)
+      console.log(error, order.totalAmount)
     }
   }
-
+ 
   return (
       <div className="payment-contaienr">
         <form onSubmit={handleSubmit}>

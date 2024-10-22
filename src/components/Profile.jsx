@@ -6,14 +6,6 @@ import { Delete } from '@mui/icons-material';
 const Profile = () => {
 
   const { profileImg, username, email, address } = useSelector(state=>state.user.data) 
-  const [formData, setFormData] = useState({
-    username: username
-  })
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value})
-  }
 
   return (
     <section id="profile">

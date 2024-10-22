@@ -45,8 +45,8 @@ const Navbar = ({cartStatus, setCartStatus}) => {
                         <ShoppingCartOutlined />
                         <p>
                             Cart
-                            { totalProducts?<span className='cart-length-container'>{totalProducts}</span>:<></>}
                         </p>
+                        { totalProducts?<span className='cart-length-container'>{totalProducts}</span>:<></>}
                     </li>
                     {
                         uid?(

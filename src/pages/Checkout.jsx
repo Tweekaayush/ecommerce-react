@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Stepper from '../components/Stepper'
 import CartCheckout from '../components/CartCheckout'
 import AddressCheckout from '../components/AddressCheckout'

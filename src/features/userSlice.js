@@ -89,7 +89,7 @@ export const removeFromWishlist = createAsyncThunk('removeFromWishlist', async(p
     return newWishlist
 })
 
-export const moveToCart = createAsyncThunk('removeFromWishlist', async(payload, {getState, dispatch})=>{
+export const moveToCart = createAsyncThunk('moveToCart', async(payload, {getState, dispatch})=>{
 
     const state = getState().user
     const newWishlist = state.data.wishlist.filter((product) => product.id !== payload.id)

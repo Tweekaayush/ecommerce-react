@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ArrowBack } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 
