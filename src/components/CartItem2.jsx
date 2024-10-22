@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import {Close} from '@mui/icons-material';
+import {Delete} from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { changeItemQuantity, removeFromCart } from '../features/cartSlice';
-import {Replay} from '@mui/icons-material';
 
 const CartItem2 = ({img, title, price, quantity, id}) => {
 
@@ -18,24 +17,32 @@ const CartItem2 = ({img, title, price, quantity, id}) => {
     }, [quantity])
 
   return (
-    <div className="cart-item2">
-        <div className="cart-item-img">
-            <img src={img} alt="" />
-        </div>
-        <div className="cart-middle">
+    <div className="cart-checkout-item">
+        <div className="cart-checkout-item-details">
+            <div>
+                <img src={img} alt="" />
+            </div>
             <h3>{title}</h3>
+        </div>
+        <div className="cart-checkout-item-price">
             <p>
                 <span>Rs.</span>
                 {price}
             </p>
-            <div className="cart-quantity-container">
-                <button onClick={()=>setItemQuantity(prev=> prev-1)}>-</button>
-                <p>{itemQuantity}</p>
-                <button onClick={()=>setItemQuantity(prev => prev+1)}>+</button>
-            </div>
-            <p> <Replay/> <span> 14 days </span> return available</p>
         </div>
-        <Close onClick={()=>dispatch(removeFromCart(id))} />
+        <div className="cart-quantity-container">
+            <button onClick={()=>setItemQuantity(prev=> prev-1)}>-</button>
+                <p>{itemQuantity}</p>
+            <button onClick={()=>setItemQuantity(prev => prev+1)}>+</button>
+        </div>
+        <div className="cart-checkout-item-subtotal">
+            <p>
+                Rs. {price * quantity}
+            </p>
+        </div>
+        <div>
+            <Delete onClick={()=>dispatch(removeFromCart(id))} />
+        </div>
     </div>
   )
 }

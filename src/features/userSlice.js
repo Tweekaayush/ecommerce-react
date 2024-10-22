@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import db, { collection, getDoc, doc, setDoc } from "../config/firebase"
-import { addToCart } from "./cartSlice";
+import { addToCart, clearCart } from "./cartSlice";
 
 const initialState = {
     loading: false,
@@ -114,6 +114,20 @@ export const updateUser = createAsyncThunk('updateUser', async(payload, {getStat
     return payload
 })
 
+export const createOrder = createAsyncThunk('createOrder', async(payload, {getState, dispatch})=>{
+    
+    const state = getState().user
+
+    const newOrders = [...state.data.orders, payload]
+
+    await setDoc(doc(collection(db, 'users'), state.data.uid), {
+        ...state.data,
+        orders: newOrders
+    })
+    dispatch(clearCart())
+    return newOrders
+})
+
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -184,6 +198,17 @@ const userSlice = createSlice({
             state.data = {...state.data, ...action.payload}
         })
         builder.addCase(updateUser.rejected, (state, action) =>{
+            state.loading = true
+            state.error = action.payload
+        })
+        builder.addCase(createOrder.pending, (state) =>{
+            state.loading = true
+        })
+        builder.addCase(createOrder.fulfilled, (state, action) =>{
+            state.loading = false
+            state.data = {...state.data, orders: action.payload}
+        })
+        builder.addCase(createOrder.rejected, (state, action) =>{
             state.loading = true
             state.error = action.payload
         })

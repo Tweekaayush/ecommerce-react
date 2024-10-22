@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import CartSummary from './CartSummary'
 import { updateUser } from '../features/userSlice'
 
-const AddressCheckout = ({setCurrentStep}) => {
+const AddressCheckout = ({setCurrentStep, order, setOrder}) => {
 
-  const {address, username} = useSelector(state=>state.user.data)
+  const {address, username, email} = useSelector(state=>state.user.data)
   const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     address_town: address.town,
@@ -34,7 +34,10 @@ const AddressCheckout = ({setCurrentStep}) => {
   }
 
   const placeOrder = () =>{
-    setCurrentStep(3)
+    if(address.pincode){
+      setOrder({...order, address: address, username: username, email:email})
+      setCurrentStep(3)
+    }
   }
 
   return (

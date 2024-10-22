@@ -37,9 +37,10 @@ const Stepper = ({checkoutSteps, currentStep, setCurrentStep}) => {
                                 if(currentStep >= (i+1))
                                     setCurrentStep(i+1)
                                 }}
+                                key={i}
                         >
                             <div className={`step-number ${currentStep === i+1? 'active': currentStep > i+1?'complete': ''}`}>
-                                {currentStep > i+1?<span>&#10004;</span>: <span>{i+1}</span>}
+                                {currentStep > i+1?<span>&#10004;</span>: <span>{step.icon}</span>}
                             </div>
                             <div>{step.name}</div>
                         </div>
