@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Stepper from '../components/Stepper'
 import CartCheckout from '../components/CartCheckout'
 import AddressCheckout from '../components/AddressCheckout'
@@ -15,23 +15,30 @@ const Checkout = () => {
     {
       name: 'Cart',  
       component: <CartCheckout setCurrentStep={setCurrentStep} order={order} setOrder={setOrder}/>,
-      icon: <ShoppingCart/>
+      icon: <ShoppingCart/>,
+      title: 'Shopping Cart'
     },
     {
       name: 'Address',
       component: <AddressCheckout setCurrentStep={setCurrentStep} order={order} setOrder={setOrder}/>,
-      icon: <Home/>
+      icon: <Home/>,
+      title: 'Delivery Address'
     },
     {
       name: 'Payment',
       component: <Elements stripe={loadStripe(process.env.REACT_APP_STRIPE_KEY)}>
                   <Payment setCurrentStep={setCurrentStep} order={order} setOrder={setOrder}/>
                 </Elements>,
-      icon: <AccountBalance/>
+      icon: <AccountBalance/>,
+      title: 'Review Order'
     },
   ]
 
   const ActiveComponent = () => checkoutSteps[currentStep-1]?.component
+
+  useEffect(()=>{
+    document.title = checkoutSteps[currentStep-1]?.title
+  }, [currentStep])
 
   return (
     <>

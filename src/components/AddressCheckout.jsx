@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CartSummary from './CartSummary'
 import { updateUser } from '../features/userSlice'
+import DeliveryAddress from './DeliveryAddress'
 
 const AddressCheckout = ({setCurrentStep, order, setOrder}) => {
 
@@ -43,23 +44,7 @@ const AddressCheckout = ({setCurrentStep, order, setOrder}) => {
   return (
     <div className="checkout-address-container">
       <div className="checkout-address-left-container">
-        <h1 className="heading-2">
-          Select Delivery Address
-        </h1>
-        {
-          address?.pincode?(
-            <div className='delivery-address-container'>
-              <h2>{username}</h2>
-              <p>
-                {address?.address_line}, {address?.town}
-                  <br/>
-                {address?.city}, {address?.state} - {address?.pincode}
-              </p>
-            </div>
-            ):(
-            <></>
-          )
-        }
+        <DeliveryAddress/>
         <div className="checkout-address-form">
           <h4 onClick={()=>setOpen(!open)}>
             {

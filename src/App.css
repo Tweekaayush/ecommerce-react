@@ -1407,13 +1407,114 @@ ul{
 
 .login-container{
   width: 450px;
-  height: 70vh;
-  background-color: var(--bg-color-3);
-  margin: 32px 32px 64px;
-  box-shadow: 2px 2px 15px var(--overlay-color-1);
+  height: 60vh;
+  margin: 32px 0 64px;
+  box-shadow: 1px 1px 10px var(--overlay-color-1);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 32px;
+  gap: 32px;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.login-form > label{
+  position: relative;
+  width: 100%;
+}
+
+.login-form > label > span{
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  transition: 0.3s ease;
+  font-size: 14px;
+  z-index: -1;
+}
+
+.login-form > label > input{
+  width:100%;
+  font-size: 16px;
+  padding: 16px;
+  border: 1px solid var(--text-color-4);
+  border-radius: 5px;
+  outline: none;
+  background-color: transparent;
+}
+
+.login-form > input {
+  padding: 16px;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--text-color-3);
+  background-color: var(--button-color-1);
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+
+.login-form > label > input:focus + span, .login-form > label > input:user-valid + span {
+  top: -10px;
+  left: 10px;
+  background-color: var(--white-color) !important;
+  padding: 2px;
+  z-index: 1;
+  font-size: 12px;
+}
+
+.login-container > hr{
+  height: 1px;
+  width: 100%;
+  border: 0;
+  background-image: linear-gradient(to right, var(--white-color), var(--overlay-color-1) , var(--white-color));
+  position: relative;
+  overflow: visible;
+  text-align: center;
+
+}
+
+.login-container > hr::before{
+  content: 'OR';
+  position: relative;
+  top: -12px;
+  font-size: 12px;
+  padding: 0 0.25em;
+  background-color: var(--white-color);
+}
+
+.login-container > button{
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--white-color);
+  color: var(--text-color-1);
+  border: 1px solid var(--text-color-1);
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.login-container > button > img{
+  width: 24px;
+}
+
+@media screen and (max-width:480px) {
+  .login-container{
+    padding-inline: 16px;
+    width: 100%;
+  }
 }
 
 /* --------------------------------------- Account --------------------------------- */
@@ -1429,7 +1530,7 @@ ul{
 }
 
 .profile-left-container{
-  flex: 25%;
+  width: 45%;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -1470,7 +1571,7 @@ ul{
   margin-top: 10px;
   font-size: 15px;
   background-color: var(--bg-color-5);
-  padding: 8px;
+  padding: 16px;
   border-radius: 5px;
   font-weight: 600;
   color: var(--text-color-1);
@@ -1528,6 +1629,10 @@ ul{
 @media screen and (max-width:768px) {
   .profile-container{
     flex-direction: column;
+    gap: 32px;
+  }
+  .profile-left-container{
+    width: 100%;
   }
 }
 
@@ -1606,7 +1711,7 @@ ul{
 .profile-form input[type='text']{
   font-size: 15px;
   background-color: var(--bg-color-5);
-  padding: 8px;
+  padding: 16px;
   border-radius: 5px;
   font-weight: 500;
   color: var(--text-color-1);
@@ -1665,6 +1770,12 @@ ul{
 @media screen and (max-width:1200px) {
   .profile-form-container{
     width: 100%;
+  }
+}
+
+@media screen and (max-width:768px) {
+  #profile-form-section{
+    padding-top: 16px;
   }
 }
 
@@ -1760,6 +1871,7 @@ ul{
   padding: 16px;
   height: fit-content;
 }
+
 .cart-checkout-right-container{
   width: 35%;
 }
@@ -1980,7 +2092,7 @@ ul{
   flex-direction: column;
   padding: 16px;
   box-shadow: 1px 1px 10px var(--overlay-color-1);
-  margin-top: 16px;
+  margin-block: 16px;
 }
 
 .delivery-address-container > p{
@@ -2093,6 +2205,15 @@ ul{
     width: 100%;
     padding-inline: 0;
   }
+}
+
+/* --------------------------------------- Footer --------------------------------- */
+
+.payment-container{
+  display: flex;
+  width: 1200px;
+  padding-block: 32px;
+  min-height: 80vh;
 }
 
 /* --------------------------------------- Footer --------------------------------- */

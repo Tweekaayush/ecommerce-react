@@ -1,10 +1,10 @@
-import CartItem2 from './CartItem2'
 import { useSelector } from 'react-redux'
 import CartSummary from './CartSummary'
+import CheckoutCartList from './CheckoutCartList'
 
 const CartCheckout = ({setCurrentStep, setOrder}) => {
 
-    const {cartItems, totalProducts} = useSelector(state=>state.cart) 
+    const {cartItems} = useSelector(state=>state.cart) 
 
     const placeOrder = (e) =>{
         setOrder({
@@ -17,31 +17,7 @@ const CartCheckout = ({setCurrentStep, setOrder}) => {
   return (
     <div className="cart-checkout-container">
         <div className="cart-checkout-left-container">
-            <h1 className="heading-2">
-                Cart items ({totalProducts} items):
-            </h1>
-            <div className="checkout-cart-headers">
-                <h4>
-                    Product
-                </h4>
-                <h4>
-                    Price
-                </h4>
-                <h4>
-                    Quantity
-                </h4>
-                <h4>
-                    Sub Total
-                </h4>
-                <span></span>
-            </div>
-            <div className="cart-checkout-items">
-                {
-                    cartItems?.map((item)=>{
-                        return <CartItem2 key={item.id} {...item}/>
-                    })
-                }
-            </div>
+            <CheckoutCartList/>
         </div>
         <div className="cart-checkout-right-container">
             <CartSummary placeOrder={placeOrder} btn={'Place order'}/>

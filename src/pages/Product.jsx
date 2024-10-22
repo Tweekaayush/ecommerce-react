@@ -16,6 +16,10 @@ const Product = () => {
         dispatch(getProductDetails(id))
         window.scrollTo(0, 0)
     }, [id])
+
+    useEffect(()=>{
+      document.title = `Buy ${productDetails.title}`
+    }, [productDetails.title])
   return (
     <>
         <ProductContent product = {productDetails}/>

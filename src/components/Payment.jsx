@@ -3,6 +3,9 @@ import {CardNumberElement, CardCvcElement, CardExpiryElement, useElements, useSt
 import { useDispatch, useSelector } from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import { createOrder } from '../features/userSlice'
+import CheckoutCartList from './CheckoutCartList'
+import CartSummary from './CartSummary'
+import DeliveryAddress from './DeliveryAddress'
 
 const Payment = ({order}) => {
 
@@ -53,15 +56,20 @@ const Payment = ({order}) => {
       console.log(error, order.totalAmount)
     }
   }
+
+  const placeOrder = () =>{
+    
+  }
  
   return (
-      <div className="payment-contaienr">
-        <form onSubmit={handleSubmit}>
-          <CardNumberElement/>
-          <CardCvcElement/>
-          <CardExpiryElement/>
-          <input type="submit" value="Pay" ref={payBtn}/>
-        </form>
+      <div className="payment-container">
+        <div className="cart-checkout-left-container">
+          <DeliveryAddress/>
+          <CheckoutCartList/>
+        </div>
+        <div className="cart-checkout-right-container">
+          <CartSummary btn={'Checkout'} placeOrder={placeOrder}/>
+        </div>
       </div>
   )
 }
