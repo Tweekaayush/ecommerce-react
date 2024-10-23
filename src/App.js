@@ -13,6 +13,7 @@ import { getUserDetails, setUser } from './features/userSlice';
 import PrivateRoutes from './components/PrivateRoutes'
 import Account from './pages/Account';
 import Checkout from './pages/Checkout';
+import SignUp from './pages/SignUp';
 const Home = lazy(() => import('./pages/Home'))
 const Browse = lazy(() => import('./pages/Browse'));
 const Product = lazy(() => import('./pages/Product'));
@@ -59,6 +60,7 @@ function App() {
           <Route exact path='/product/:id' element={<Product/>}/>
           <Route exact path='/wishlist' element={<Wishlist/>}/>
           <Route exact path='/login' element={<Login />} />
+          <Route exact path='/signup' element={<SignUp />} />
           <Route element={<PrivateRoutes/>}>
             <Route exact path='/account' element={<Account/>} />
             <Route exact path='/checkout' element={<Checkout/>} />

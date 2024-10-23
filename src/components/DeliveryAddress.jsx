@@ -8,7 +8,7 @@ const DeliveryAddress = () => {
   return (
     <>
         <h1 className="heading-2">
-          Select Delivery Address
+          Delivery Address
         </h1>
         {
           address?.pincode?(

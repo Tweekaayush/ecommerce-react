@@ -44,7 +44,7 @@ const CartSummary = ({placeOrder, btn}) => {
                     <h4>
                         Shipping Fee
                     </h4>
-                    <p>
+                    <p style={{color: 'green'}}>
                         Free
                     </p>
                 </div>
