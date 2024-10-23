@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Instagram, Facebook, Pinterest, X } from '@mui/icons-material'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Footer = () => {
   
     const [year, setYear] = useState(new Date().getUTCFullYear())
+    const navigate = useNavigate()
 
     useEffect(()=>{
 
@@ -44,26 +46,50 @@ const Footer = () => {
             <div>
                 <h1 className="footer-title">Popular Categories</h1>
                 <ul className='footer-list-1'>
-                    <li>Furniture</li>
-                    <li>Electronics</li>
-                    <li>Lamps</li>
-                    <li>Chairs</li>
+                    <li>
+                        <Link to='/browse/furniture'>
+                            Furniture
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/browse/electronic'>
+                          Electronics
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/browse/lamp'>
+                            Lamps
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/browse/chair'>
+                            Chairs
+                        </Link>
+                    </li>
                 </ul>
             </div>
             <div>
                 <h1 className="footer-title">Keep in touch!</h1>
                 <ul className='footer-list-2'>
                     <li>
-                        <X/>
+                        <a href="https://www.twitter.com">
+                            <X/>
+                        </a>
                     </li>
                     <li> 
-                        <Facebook/>
+                        <a href="https://www.facebook.com">
+                            <Facebook/>
+                        </a>
                     </li>
                     <li>
-                        <Instagram/>
+                        <a href="https://www.instagram.com">
+                            <Instagram/>
+                        </a>
                     </li>
                     <li>
-                        <Pinterest/>
+                        <a href="https://in.pinterest.com">
+                            <Pinterest/>
+                        </a>
                     </li>
                 </ul>
             </div>

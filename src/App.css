@@ -1714,6 +1714,7 @@ ul{
   align-items: center;
   height: 100%;
   flex: 1;
+  padding-bottom: 16px;
 }
 
 .profile-headings{
@@ -1728,6 +1729,23 @@ ul{
 .order-history-table{
   flex: 1;
   width: 100%;
+  padding: 16px;
+  overflow-x: scroll;
+  margin-bottom: 16px;
+}
+
+.order-history-table::-webkit-scrollbar-track{
+  background-color: var(--bg-color-2);
+}
+
+.order-history-table::-webkit-scrollbar-thumb{
+  background-color: var(--button-color-1);
+}
+
+.order-history-table::-webkit-scrollbar
+{
+	height: 6px;
+	background-color: var(--bg-color-2);
 }
 
 .profile-headings h1{
@@ -1740,6 +1758,59 @@ ul{
   font-size: 24px;
 }
 
+.order-history-table-headers{
+  display: grid;
+  grid-template-columns: 3fr repeat(4, 1fr);
+  gap: 16px;
+  min-width: 750px;
+  margin-bottom: 16px;
+}
+
+.order-history-table-headers > h4{
+  color: var(--text-color-2);
+  font-size: 16px;
+}
+
+.order-history-list{
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  min-width: 750px; 
+}
+
+.order-item-container{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr repeat(4, 1fr);
+  border: 1px solid var(--text-color-2);
+  gap: 16px;
+}
+
+.order-item-container > div > div > img{
+  width: 100%;
+  height: 100%;
+  object-fit:cover ;
+}
+
+.order-item-container > div > div{
+  width: 100px;
+  height: 100px;
+}
+
+.order-item-container p{
+  display: flex;
+  align-items: center;
+}
+
+.order-item-container > div{
+  display: flex;
+}
+
+/* @media screen and (max-width: 768px) {
+  .order-history-table-headers, .order-item-container{
+    grid-template-columns: 2fr repeat(4, 1fr);
+  }
+} */
 
 /* --------------------------------------- Edit Profile --------------------------------- */
 
@@ -2384,13 +2455,17 @@ footer{
 
 .footer-list-1 > li{
   margin-bottom: 16px;
-  color: var(--text-color-2);
   font-size: 16px;
 }
 
 .footer-list-2{
   display: flex;
   gap: 16px;
+}
+
+.footer-list-1 > li > a, .footer-list-2 > li > a{
+  text-decoration: none;
+  color: var(--text-color-2);
 }
 
 .lower-footer{

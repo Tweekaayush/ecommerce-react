@@ -129,7 +129,7 @@ export const createOrder = createAsyncThunk('createOrder', async(payload, {getSt
     
     const state = getState().user
 
-    const newOrders = [...state.data.orders, payload]
+    const newOrders = [...state.data.orders, ...payload]
 
     await setDoc(doc(collection(db, 'users'), state.data.uid), {
         ...state.data,

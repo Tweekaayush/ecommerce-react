@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getUserDetails } from '../features/userSlice'
 import { Link } from 'react-router-dom'
+import { toast, Bounce } from 'react-toastify'
 
 const SignUp = () => {
 
@@ -55,7 +56,7 @@ const SignUp = () => {
 
         setFormErrors({...obj})
 
-        return obj.firstName === '' && obj.email === '' && obj.password === '' && obj.confirmPassword == ''
+        return obj.firstName === '' && obj.email === '' && obj.password === '' && obj.confirmPassword === ''
         
     }
 
@@ -77,6 +78,17 @@ const SignUp = () => {
                     email: user.email,
                     profileImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1280px-Image_created_with_a_mobile_phone.png'
                 }))
+                toast.success('Logged In Successfully!', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
             }).catch(e=>alert(e.message))
         }
     } 

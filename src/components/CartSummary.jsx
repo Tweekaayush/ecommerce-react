@@ -21,7 +21,7 @@ const CartSummary = ({placeOrder, btn}) => {
                         Total MRP
                     </h4>
                     <p>
-                        ${totalPrice}
+                        $ {totalPrice}
                     </p>
                 </div>
                 <div>

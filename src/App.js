@@ -14,6 +14,7 @@ import PrivateRoutes from './components/PrivateRoutes'
 import Account from './pages/Account';
 import Checkout from './pages/Checkout';
 import SignUp from './pages/SignUp';
+import { ToastContainer, Bounce } from 'react-toastify';
 const Home = lazy(() => import('./pages/Home'))
 const Browse = lazy(() => import('./pages/Browse'));
 const Product = lazy(() => import('./pages/Product'));
@@ -68,6 +69,19 @@ function App() {
         </Routes>
       </Suspense>
       <Footer />
+      <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          transition={Bounce}
+      />
     </Router>
   );
 }

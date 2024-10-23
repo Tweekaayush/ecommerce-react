@@ -44,7 +44,7 @@ const Cart = ({cartStatus, setCartStatus}) => {
                             <div className="cart-summary">
                                 <div className="cart-subtotal">
                                     <h3>Subtotal: </h3>
-                                    <p>Rs. {totalPrice}/-</p>
+                                    <p>$ {totalPrice}/-</p>
                                 </div>
                                 <button className="section-btn" onClick={handleRedirect}>Checkout</button>
                             </div>

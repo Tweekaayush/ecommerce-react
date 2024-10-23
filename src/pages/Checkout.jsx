@@ -38,7 +38,7 @@ const Checkout = () => {
 
   useEffect(()=>{
     document.title = checkoutSteps[currentStep-1]?.title
-  }, [currentStep])
+  }, [currentStep, checkoutSteps])
 
   return (
     <>

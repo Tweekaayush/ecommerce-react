@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Profile from '../components/Profile'
-import OrderHistoryPrev from '../components/OrderHistoryPrev'
 import EditProfile from '../components/EditProfile'
 
 const Account = () => {

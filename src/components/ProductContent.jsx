@@ -4,6 +4,8 @@ import { Rating } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice';
 import { addToWishlist } from '../features/userSlice';
+import {toast, Bounce } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductContent = ({product}) => {
 
@@ -13,6 +15,41 @@ const ProductContent = ({product}) => {
     const [displayImg, setDisplayImg] = useState(img)
     const {wishlist} = useSelector(state=>state.user.data)
     const [inWishlist,  setInWishlist] = useState(false)
+
+
+    const handleAddToCart = () => {
+        toast.success('Added To Cart!', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+
+        dispatch(addToCart({...product, quantity: quantity }))
+        
+    }
+
+    const handleAddToWishlist = () =>{
+
+        toast.success('Added To Wishlist!', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+
+        dispatch(addToWishlist({...product}))
+    }
 
     const checkWishlist = () =>{
         const found = wishlist?.find((product)=>product.id === id)
@@ -25,6 +62,10 @@ const ProductContent = ({product}) => {
     }
 
     useEffect(()=>{
+        setQuantity(1)
+    }, [id])
+
+    useEffect(()=>{
         setDisplayImg(img)
     }, [img])
 
@@ -33,6 +74,7 @@ const ProductContent = ({product}) => {
     }, [wishlist, id])
 
   return (
+    <>
     <section id="product-content">
         <div className="product-content-container">
             <div className="product-content-left">
@@ -72,12 +114,13 @@ const ProductContent = ({product}) => {
                     <button onClick={()=>setQuantity(quantity + 1)}>+</button>
                 </div>
                 <div className="product-btns">
-                    <button onClick={()=>dispatch(addToCart({...product, quantity: quantity }))}> <ShoppingCart/> Add to cart</button>
-                    <button disabled={inWishlist} className={inWishlist?'product-in-wishlist':''} onClick={()=>dispatch(addToWishlist({...product}))}> <Favorite/> wishlist</button>
+                    <button onClick={handleAddToCart}> <ShoppingCart/> Add to cart</button>
+                    <button disabled={inWishlist} className={inWishlist?'product-in-wishlist':''} onClick={handleAddToWishlist}> <Favorite/> wishlist</button>
                 </div>
             </div>
         </div>
     </section>
+    </>
   )
 }
 

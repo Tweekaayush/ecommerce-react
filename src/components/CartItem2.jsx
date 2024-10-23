@@ -2,11 +2,27 @@ import React, { useEffect, useState } from 'react'
 import {Delete} from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { changeItemQuantity, removeFromCart } from '../features/cartSlice';
+import { toast, Bounce } from 'react-toastify';
 
 const CartItem2 = ({img, title, price, quantity, id}) => {
 
     const dispatch = useDispatch()
     const [itemQuantity, setItemQuantity] = useState(quantity)
+
+    const handleRemoveFromCart = () =>{
+        dispatch(removeFromCart(id))
+        toast.success('Removed From Cart!', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    }
 
     useEffect(()=>{
         dispatch(changeItemQuantity({quantity: itemQuantity, id: id}))
@@ -41,7 +57,7 @@ const CartItem2 = ({img, title, price, quantity, id}) => {
             </p>
         </div>
         <div>
-            <Delete onClick={()=>dispatch(removeFromCart(id))} />
+            <Delete onClick={handleRemoveFromCart} />
         </div>
     </div>
   )

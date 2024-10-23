@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { signInWithPopup, auth, provider, signInWithEmailAndPassword } from '../config/firebase'
 import { getUserDetails } from '../features/userSlice'
 import google from '../assets/svg/google.png'
+import { toast, Bounce } from 'react-toastify'
 
 const Login = () => {
 
@@ -59,6 +60,17 @@ const Login = () => {
                 email: user.email,
                 photo: user.photoURL,
               }))
+              toast.success('Logged In Successfully!', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
         }).catch((e)=>console.log(e.message))
     }
 
@@ -77,10 +89,32 @@ const Login = () => {
             email: user.email,
             profileImg: user.photoURL,
           }))
+          toast.success('Logged In Successfully!', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
         }).catch((e)=>{
-          alert(e.message)
+          toast.error('Invalid User!', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
         })
       }
+
     }
 
     useEffect(()=>{

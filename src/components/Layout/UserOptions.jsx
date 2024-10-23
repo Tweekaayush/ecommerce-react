@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signOutUser } from '../../features/userSlice';
 import { auth, signOut } from '../../config/firebase';
 import { Person, Logout } from '@mui/icons-material';
+import { toast, Bounce } from 'react-toastify';
 
 const UserOptions = ({photo}) => {
     
@@ -34,7 +35,18 @@ const UserOptions = ({photo}) => {
       signOut(auth).then(()=>{
           dispatch(signOutUser())
       }).catch((e)=> console.log(e.message))
-  }
+    }
+    toast.success('Logged Out!', {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+  });
   }
 
 

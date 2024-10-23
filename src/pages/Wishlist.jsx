@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Wishlist = () => {
 
-    const {wishlist} = useSelector(state => state.user.data)
+    const {uid, wishlist} = useSelector(state => state.user.data)
     const [wishlistLength, setWishlistLength] = useState(0)
     const navigate = useNavigate()
 
@@ -52,9 +52,13 @@ const Wishlist = () => {
                 ):(
                     <div className='empty-wishlist'>
                         <img src={emptyWishlist} alt="empty-wishlist" />
-                        <button className="section-btn" onClick={handleRedirect}>
-                            Sign in to View your Wishlist!
-                        </button>
+                        {
+                            !uid && (
+                                <button className="section-btn" onClick={handleRedirect}>
+                                    Sign in to View your Wishlist!
+                                </button>
+                            )
+                        }
                     </div>
                 )
             }

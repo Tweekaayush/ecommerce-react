@@ -1,42 +1,18 @@
-import React from 'react'
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { Pagination } from '@mui/material'
+import OrderItem from './OrderItem'
 
 const OrderHistoryPrev = () => {
-  const columns = [
+  
+  const {orders} = useSelector(state => state.user.data)
 
-    { field: "id", headerName: "ID", flex: 0.5 },
-    {
-      field: "title",
-      headerName: "Title",
-      flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "price",
-      headerName: "Price (Rs)",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
-    {
-      field: "payment",
-      headerName: "Payment",
-      flex: 1,
-    },
-    {
-      field: "status",
-      headerName: "Status",
-      flex: 1,
-    },
-    {
-      field: 'quantity',
-      headerName: 'Quantity',
-      flex: 1,
-    }
-  ];
+  const paginate = 3
+  const [page, setPage] = useState(1)
 
-  const {cartItems} = useSelector(state=>state.cart)
+  const handlePageChange = (e, p) =>{
+    setPage(p)
+  }
 
   return (
     <div className="order-history-container">
@@ -44,8 +20,39 @@ const OrderHistoryPrev = () => {
         <h1>Order History</h1>
       </div>
       <div className="order-history-table">
-        <DataGrid rows={cartItems} columns={columns} components={{Toolbar: GridToolbar}} pageSizeOptions={[4, 8, 12]}/>
+        <div className="order-history-table-headers">
+          <h4>
+            Order Item
+          </h4>
+          <h4>
+            Quantity
+          </h4>
+          <h4>
+            Price
+          </h4>
+          <h4>
+            Order Status
+          </h4>
+          <h4>
+            Payed On
+          </h4>
+        </div>
+        <div className="order-history-list">
+          {
+          orders && orders?.slice((page-1)* paginate, page * paginate).map((order)=> {
+            return <OrderItem key={order.id} {...order} />
+          })
+          }
+        </div>
       </div>
+      {
+        orders && <Pagination 
+                    count={Math.ceil(orders?.length/paginate)} 
+                    onChange={handlePageChange} 
+                    page={page} 
+                    size='medium'
+                  />
+      }
     </div>
   )
 }
