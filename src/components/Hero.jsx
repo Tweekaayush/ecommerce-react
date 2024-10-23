@@ -1,7 +1,9 @@
 import React from 'react'
 import heroImg from '../assets/images/Hero/home.png'
+import { useNavigate } from 'react-router-dom'
 
 const Hero = () => {
+    const navigate = useNavigate()
   return (
     <section id='hero'>
         <div className="hero-container">
@@ -17,7 +19,7 @@ const Hero = () => {
                     This special vase is named after the japanese word for flower arrangement, Ikebana. It is designed to honor and admire the entire flower, including the stem.
                     </p>
                 </div>
-                <button className="section-btn">
+                <button className="section-btn" onClick={()=>navigate('/browse')}>
                     See Collections!
                 </button>
             </div>

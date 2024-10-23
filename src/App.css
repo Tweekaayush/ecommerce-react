@@ -1997,10 +1997,10 @@ ul{
 .cart-summary-container{
   padding-bottom: 48px;
   box-shadow: 2px 2px 15px var(--overlay-color-1);
-  padding: 16px;
+  padding: 16px 16px 32px;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: fit-content;
   border-radius: 5px;
 }
 

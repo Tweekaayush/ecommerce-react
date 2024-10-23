@@ -22,7 +22,7 @@ const ProductCard3 = ({product}) => {
                 {ratings}
                 <Rating name='half-rating-read' value={ratings} precision={0.1} readOnly/>
             </p>
-            <p>Rs. {price}</p>
+            <p>$ {price}</p>
             <button 
                 className="section-btn"
                 onClick={(e)=>[e.stopPropagation(), dispatch(moveToCart({...product, quantity: 1}))]}

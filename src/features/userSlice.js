@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import db, { collection, getDoc, doc, setDoc } from "../config/firebase"
+import db, { collection, getDoc, doc, setDoc, deleteDoc } from "../config/firebase"
 import { addToCart, clearCart } from "./cartSlice";
 
 const initialState = {
@@ -55,6 +55,15 @@ export const getUserDetails = createAsyncThunk('getUserDetails', async (payload)
     }
 })
 
+export const deleteUserAccount = createAsyncThunk('deleteUserAccount', async(payload, {getState, dispatch})=>{
+
+    const state = getState().user.data
+    
+    await deleteDoc(doc(db, "users", state.uid));
+
+    dispatch(signOutUser())
+})
+
 export const addToWishlist = createAsyncThunk('addToWishlist', async(payload, {getState})=>{
 
     const state = getState().user
@@ -98,7 +107,9 @@ export const moveToCart = createAsyncThunk('moveToCart', async(payload, {getStat
         ...state.data,
         wishlist: newWishlist
     })
+
     dispatch(addToCart(payload))
+
     return newWishlist
 })
 
@@ -187,6 +198,17 @@ const userSlice = createSlice({
             state.data.wishlist = action.payload
         })
         builder.addCase(removeFromWishlist.rejected, (state, action)=>{
+            state.loading = false
+            state.error = action.payload
+        })
+        builder.addCase(moveToCart.pending, (state)=>{
+            state.loading = true
+        })
+        builder.addCase(moveToCart.fulfilled, (state, action)=>{
+            state.loading = false
+            state.data.wishlist = action.payload
+        })
+        builder.addCase(moveToCart.rejected, (state, action)=>{
             state.loading = false
             state.error = action.payload
         })

@@ -1,11 +1,27 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import OrderHistoryPrev from './OrderHistoryPrev'
 import { Delete } from '@mui/icons-material';
+import { deleteUserAccount } from '../features/userSlice';
+import { auth, deleteUser } from '../config/firebase';
 
 const Profile = () => {
 
   const { profileImg, username, email, address } = useSelector(state=>state.user.data) 
+  const dispatch = useDispatch()
+
+  const deleteAccount = () =>{
+
+    const user = auth.currentUser;
+
+    deleteUser(user).then(() => {
+      dispatch(deleteUserAccount())
+    }).catch((error) => {
+      console.log(error.message)
+    });
+
+
+  }
 
   return (
     <section id="profile">
@@ -37,7 +53,7 @@ const Profile = () => {
                     </p>}
                 </div>
               </div>
-              <button>Delete My Account <Delete/></button>
+              <button onClick={deleteAccount}>Delete My Account <Delete/></button>
             </div>
             <div className="profile-right-container">
               <OrderHistoryPrev />

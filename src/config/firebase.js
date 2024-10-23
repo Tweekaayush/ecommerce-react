@@ -1,7 +1,7 @@
 import {initializeApp} from 'firebase/app'
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, FacebookAuthProvider, updateProfile, updateEmail, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, FacebookAuthProvider, updateProfile, updateEmail, signInWithEmailAndPassword, createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 import {getStorage} from 'firebase/storage'
-import { getFirestore, getDocs, collection, setDoc, doc, getDoc } from "firebase/firestore";
+import { getFirestore, getDocs, collection, setDoc, doc, getDoc, deleteDoc } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -20,5 +20,5 @@ const firebaseConfig = {
   const fbProvider = new FacebookAuthProvider()
   const storage = getStorage(firebaseApp)
 
-  export {auth, provider, storage, signInWithPopup, onAuthStateChanged, signOut, getDocs, collection, setDoc, doc, getDoc, fbProvider, updateEmail, updateProfile, signInWithEmailAndPassword, createUserWithEmailAndPassword }
+  export {auth, provider, storage, signInWithPopup, onAuthStateChanged, signOut, getDocs, collection, setDoc, doc, getDoc, fbProvider, updateEmail, updateProfile, signInWithEmailAndPassword, createUserWithEmailAndPassword, deleteUser, deleteDoc }
   export default db

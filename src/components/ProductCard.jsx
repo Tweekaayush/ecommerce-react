@@ -15,7 +15,7 @@ const ProductCard = ({img, title, price, ratings, id}) => {
                 {ratings}
                 <Rating name='half-rating-read' value={ratings} precision={0.1} readOnly/>
             </p>
-            <p>Rs. {price}</p>
+            <p>$ {price}</p>
         </div>
 
     </div>

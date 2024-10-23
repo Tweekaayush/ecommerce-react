@@ -24,7 +24,7 @@ const CartItem = ({img, title, price, quantity, id}) => {
         <div className="cart-middle">
             <h3>{title}</h3>
             <p>
-                <span>Rs.</span>
+                <span>$ </span>
                 {price}
             </p>
             <div className="cart-quantity-container">

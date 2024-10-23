@@ -21,7 +21,7 @@ const CartSummary = ({placeOrder, btn}) => {
                         Total MRP
                     </h4>
                     <p>
-                        Rs.{totalPrice}
+                        ${totalPrice}
                     </p>
                 </div>
                 <div>
@@ -29,7 +29,7 @@ const CartSummary = ({placeOrder, btn}) => {
                         Discount on MRP
                     </h4>
                     <p>
-                        - Rs.{discount}
+                        - $ {discount}
                     </p>
                 </div>
                 <div>
@@ -37,7 +37,7 @@ const CartSummary = ({placeOrder, btn}) => {
                         Platform Fee
                     </h4>
                     <p>
-                        Rs.{platformFee}
+                        $ {platformFee}
                     </p>
                 </div>
                 <div>
@@ -52,7 +52,7 @@ const CartSummary = ({placeOrder, btn}) => {
             <div className="cart-checkout-summary">
                 <div>
                     <h1>Total Amount</h1>
-                    <p> Rs. {totalAmount}</p>
+                    <p> $ {totalAmount}</p>
                 </div>
                 <button className="section-btn" onClick={()=>placeOrder(totalAmount)}>{btn}</button>
             </div>

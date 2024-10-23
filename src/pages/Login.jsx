@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { signInWithPopup, auth, provider, signInWithEmailAndPassword } from '../config/firebase'
 import { getUserDetails } from '../features/userSlice'
 import google from '../assets/svg/google.png'
@@ -115,7 +115,7 @@ const Login = () => {
               <img src={google} alt="google" />
               Google
             </button>
-            <p>Don't have and Account? <a href="/signup">Sign Up</a> here.</p>
+            <p>Don't have and Account? <Link to="/signup">Sign Up</Link> here.</p>
         </div>
     </section>
   )

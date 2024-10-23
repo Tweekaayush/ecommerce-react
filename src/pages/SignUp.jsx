@@ -3,6 +3,7 @@ import { auth, createUserWithEmailAndPassword, updateProfile } from '../config/f
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getUserDetails } from '../features/userSlice'
+import { Link } from 'react-router-dom'
 
 const SignUp = () => {
 
@@ -119,6 +120,7 @@ const SignUp = () => {
               </label>
               <input type="submit" value="Sign Up"/>
             </form>
+            <p>Already have an Account? <Link to="/login">Login</Link> here.</p>
         </div>
     </section>
   )

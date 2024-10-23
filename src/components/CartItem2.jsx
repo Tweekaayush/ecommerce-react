@@ -26,7 +26,7 @@ const CartItem2 = ({img, title, price, quantity, id}) => {
         </div>
         <div className="cart-checkout-item-price">
             <p>
-                <span>Rs.</span>
+                <span>$ </span>
                 {price}
             </p>
         </div>
@@ -37,7 +37,7 @@ const CartItem2 = ({img, title, price, quantity, id}) => {
         </div>
         <div className="cart-checkout-item-subtotal">
             <p>
-                Rs. {price * quantity}
+                $ {price * quantity}
             </p>
         </div>
         <div>
