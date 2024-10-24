@@ -32,17 +32,41 @@ const Payment = ({order}) => {
       }
     })
     dispatch(createOrder(updatedOrder))
-    navigate('/success')
+    navigate(`/success/${order_id}`)
   }
  
   return (
-      <div className="payment-container">
-        <div className="cart-checkout-left-container">
+      <div className="checkout-container">
+        <div className="checkout-left-container">
           <DeliveryAddress/>
-          <CheckoutCartList/>
+          <div className="payment-options-container">
+            <h2 className="heading-2">
+              Payment Options
+            </h2>
+            <div className="payment-options-content">
+              <div className="payment-options-content-left">
+                <h4>Credit/Debit Card</h4>
+              </div>
+              <div className="payment-options-content-right">
+                <div>
+                  <h1 className="heading-3">Card Number</h1>
+                  <CardNumberElement className='paymentInput'/>
+                </div>
+                <div>
+                <h1 className="heading-3">Expiration Date</h1>
+                  <CardExpiryElement className='paymentInput'/>
+                </div>
+                <div>
+                <h1 className="heading-3">Security Code</h1>
+                  <CardCvcElement className='paymentInput'/>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
-        <div className="cart-checkout-right-container">
-          <CartSummary btn={'Checkout'} placeOrder={placeOrder}/>
+        <div className="checkout-right-container">
+          <CartSummary btn={`Pay $${order?.totalPrice}`} placeOrder={placeOrder}/>
         </div>
       </div>
   )

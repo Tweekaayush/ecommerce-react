@@ -1,6 +1,6 @@
 import { useEffect, lazy, Suspense } from 'react';
 import './App.css'
-import {BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from './features/productSlice';
@@ -9,12 +9,13 @@ import Footer from './components/Layout/Footer';
 import Cart from './components/Cart';
 import Loader from './components/Loader';
 import { auth, onAuthStateChanged } from './config/firebase';
-import { getUserDetails, setUser } from './features/userSlice';
+import { getUserDetails } from './features/userSlice';
 import PrivateRoutes from './components/PrivateRoutes'
 import Account from './pages/Account';
 import Checkout from './pages/Checkout';
 import SignUp from './pages/SignUp';
 import { ToastContainer, Bounce } from 'react-toastify';
+import Success from './pages/Success';
 const Home = lazy(() => import('./pages/Home'))
 const Browse = lazy(() => import('./pages/Browse'));
 const Product = lazy(() => import('./pages/Product'));
@@ -65,6 +66,7 @@ function App() {
           <Route element={<PrivateRoutes/>}>
             <Route exact path='/account' element={<Account/>} />
             <Route exact path='/checkout' element={<Checkout/>} />
+            <Route exact path='/success/:id' element={<Success />} />
           </Route>
         </Routes>
       </Suspense>

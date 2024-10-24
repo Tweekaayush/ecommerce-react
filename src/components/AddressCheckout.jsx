@@ -42,8 +42,8 @@ const AddressCheckout = ({setCurrentStep, order, setOrder}) => {
   }
 
   return (
-    <div className="checkout-address-container">
-      <div className="checkout-address-left-container">
+    <div className="checkout-container">
+      <div className="checkout-left-container">
         <DeliveryAddress/>
         <div className="checkout-address-form">
           <h4 onClick={()=>setOpen(!open)}>
@@ -63,7 +63,7 @@ const AddressCheckout = ({setCurrentStep, order, setOrder}) => {
           </form>
         </div>
       </div>
-      <div className="checkout-address-right-container">
+      <div className="checkout-right-container">
         <CartSummary placeOrder={placeOrder} btn={'Continue'}/>
       </div>
     </div>

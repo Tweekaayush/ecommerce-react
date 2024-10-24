@@ -15,11 +15,11 @@ const CartCheckout = ({setCurrentStep, setOrder}) => {
         setCurrentStep(2)
     }
   return (
-    <div className="cart-checkout-container">
-        <div className="cart-checkout-left-container">
+    <div className="checkout-container">
+        <div className="checkout-left-container">
             <CheckoutCartList/>
         </div>
-        <div className="cart-checkout-right-container">
+        <div className="checkout-right-container">
             <CartSummary placeOrder={placeOrder} btn={'Place order'}/>
         </div>
     </div>

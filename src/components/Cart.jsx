@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import img from '../assets/images/cart/empty-cart.png'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import CartItem from './CartItem'
 import { Close } from '@mui/icons-material'
 import {useSelector} from 'react-redux'
@@ -9,11 +9,17 @@ const Cart = ({cartStatus, setCartStatus}) => {
 
     const {cartItems, totalProducts, totalPrice} = useSelector(state => state.cart)
     const navigate = useNavigate()
-    
+    const {pathname} = useLocation()
+
     const handleRedirect = () =>{
         setCartStatus(false)
         navigate('/checkout')
     }
+
+    useEffect(()=>{
+        setCartStatus(false)
+    }, [pathname])
+
   return (
     <div id="cart" className={cartStatus?'cart-active':''}>
         <div className="cart-headers">
@@ -24,7 +30,7 @@ const Cart = ({cartStatus, setCartStatus}) => {
             {
                 totalProducts === 0?(
                     <div className="empty-cart">
-                        <img src={img} alt="" srcset="" />
+                        <img src={img} alt="empty-cart" />
                         <p>Your cart is empty!</p>
                         <button className="section-btn" onClick={()=>setCartStatus(false)}>Keep Browsing</button>
                     </div>

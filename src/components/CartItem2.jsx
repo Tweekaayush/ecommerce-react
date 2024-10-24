@@ -3,13 +3,16 @@ import {Delete} from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { changeItemQuantity, removeFromCart } from '../features/cartSlice';
 import { toast, Bounce } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const CartItem2 = ({img, title, price, quantity, id}) => {
 
     const dispatch = useDispatch()
     const [itemQuantity, setItemQuantity] = useState(quantity)
+    const navigate = useNavigate()
 
-    const handleRemoveFromCart = () =>{
+    const handleRemoveFromCart = (e) =>{
+        e.stopPropagation()
         dispatch(removeFromCart(id))
         toast.success('Removed From Cart!', {
             position: "top-center",
@@ -33,10 +36,10 @@ const CartItem2 = ({img, title, price, quantity, id}) => {
     }, [quantity])
 
   return (
-    <div className="cart-checkout-item">
+    <div className="cart-checkout-item" onClick={()=>navigate(`/product/${id}`)}>
         <div className="cart-checkout-item-details">
             <div>
-                <img src={img} alt="" />
+                <img src={img} alt={title} />
             </div>
             <h3>{title}</h3>
         </div>
@@ -47,9 +50,9 @@ const CartItem2 = ({img, title, price, quantity, id}) => {
             </p>
         </div>
         <div className="cart-quantity-container">
-            <button onClick={()=>setItemQuantity(prev=> prev-1)}>-</button>
+            <button onClick={(e)=>[e.stopPropagation(), setItemQuantity(prev=> prev-1)]}>-</button>
                 <p>{itemQuantity}</p>
-            <button onClick={()=>setItemQuantity(prev => prev+1)}>+</button>
+            <button onClick={(e)=>[e.stopPropagation(),setItemQuantity(prev => prev+1)]}>+</button>
         </div>
         <div className="cart-checkout-item-subtotal">
             <p>
