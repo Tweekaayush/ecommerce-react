@@ -5,7 +5,7 @@ const CartSummary = ({placeOrder, btn}) => {
     const {totalProducts, totalPrice} = useSelector(state=>state.cart)
     const [totalAmount, setTotalAmount] = useState(0)
     const discount = 0
-    const platformFee = 20
+    const platformFee = 0
 
     useEffect(()=>{
         setTotalAmount(totalPrice - discount + platformFee + 0)

@@ -11,16 +11,18 @@ import Loader from './components/Loader';
 import { auth, onAuthStateChanged } from './config/firebase';
 import { getUserDetails } from './features/userSlice';
 import PrivateRoutes from './components/PrivateRoutes'
-import Account from './pages/Account';
-import Checkout from './pages/Checkout';
 import SignUp from './pages/SignUp';
 import { ToastContainer, Bounce } from 'react-toastify';
-import Success from './pages/Success';
 const Home = lazy(() => import('./pages/Home'))
 const Browse = lazy(() => import('./pages/Browse'));
 const Product = lazy(() => import('./pages/Product'));
 const Wishlist = lazy(() => import('./pages/Wishlist'))
 const Login = lazy(() => import('./pages/Login'))
+const Account = lazy(() => import('./pages/Account'))
+const Checkout = lazy(() => import ('./pages/Checkout'))
+const Success = lazy(() => import('./pages/Success'))
+const Failed = lazy(() => import('./pages/Failed'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 function App() {
 
@@ -66,8 +68,10 @@ function App() {
           <Route element={<PrivateRoutes/>}>
             <Route exact path='/account' element={<Account/>} />
             <Route exact path='/checkout' element={<Checkout/>} />
-            <Route exact path='/success/:id' element={<Success />} />
+            <Route exact path='checkout/success' element={<Success />} />
+            <Route exact path='checkout/failed/:id' element={<Failed />} />
           </Route>
+          <Route exact path='/*' element={<NotFound/>} />
         </Routes>
       </Suspense>
       <Footer />

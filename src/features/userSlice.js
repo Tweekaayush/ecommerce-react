@@ -18,6 +18,7 @@ const initialState = {
         },
         wishlist: [],
         orders: [],
+        current_order: []
     },
     error: ''
 }
@@ -139,6 +140,20 @@ export const createOrder = createAsyncThunk('createOrder', async(payload, {getSt
     return newOrders
 })
 
+export const updateOrders = createAsyncThunk('updateOrder', async(payload, {getState})=>{
+
+    const state = getState().user
+    
+    const newOrders = state.data.orders.filter((order)=>order.order_id !== payload)
+    await setDoc(doc(collection(db, 'users'), state.data.uid), {
+        ...state.data,
+        orders: newOrders
+    })
+
+    return newOrders
+
+})
+
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -159,6 +174,9 @@ const userSlice = createSlice({
                 wishlist: [],
                 orders: [],
             }
+        },
+        clearCurrentOrder: (state, action)=>{
+            state.data.current_order = []
         },
     },
     extraReducers: (builder)=>{
@@ -220,7 +238,7 @@ const userSlice = createSlice({
             state.data = {...state.data, ...action.payload}
         })
         builder.addCase(updateUser.rejected, (state, action) =>{
-            state.loading = true
+            state.loading = false
             state.error = action.payload
         })
         builder.addCase(createOrder.pending, (state) =>{
@@ -231,13 +249,24 @@ const userSlice = createSlice({
             state.data = {...state.data, orders: action.payload}
         })
         builder.addCase(createOrder.rejected, (state, action) =>{
+            state.loading = false
+            state.error = action.payload
+        })
+        builder.addCase(updateOrders.pending, (state) =>{
             state.loading = true
+        })
+        builder.addCase(updateOrders.fulfilled, (state, action) =>{
+            state.loading = false
+            state.data = {...state.data, orders: action.payload}
+        })
+        builder.addCase(updateOrders.rejected, (state, action) =>{
+            state.loading = false
             state.error = action.payload
         })
     }
 })
 
 
-export const {setUser, signOutUser} = userSlice.actions
+export const {setUser, signOutUser, clearCurrentOrder} = userSlice.actions
 
 export default userSlice.reducer
