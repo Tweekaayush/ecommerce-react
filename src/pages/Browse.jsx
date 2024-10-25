@@ -3,7 +3,7 @@ import BrowseProducts from '../components/BrowseProducts'
 import Filters from '../components/Filters'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getFilteredProducts } from '../features/productSlice'
+import { getFilteredProducts, fetchProducts } from '../features/productSlice'
 
 const Browse = () => {
 
@@ -19,6 +19,7 @@ const Browse = () => {
     useEffect(()=>{
       window.scrollTo(0, 0)
       document.title ='Browse'
+      dispatch(fetchProducts())
     }, [])
 
   return (

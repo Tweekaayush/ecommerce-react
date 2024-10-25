@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const Trending = () => {
 
-    const {trendingProducts} = useSelector(state=>state.products.data)
+    const {loading, data:{trendingProducts}} = useSelector(state=>state.products)
     const slideLeft = () => {
         let slider = document.getElementById('trendingSlider');
         slider.scrollLeft = slider.scrollLeft - 235;
@@ -27,7 +27,7 @@ const Trending = () => {
                 </div>
             </div>
             <div className="trending-lower-container">
-                <ProductSlider products={trendingProducts}/>
+                <ProductSlider products={trendingProducts} loading={loading}/>
             </div>
         </div>
     </section>

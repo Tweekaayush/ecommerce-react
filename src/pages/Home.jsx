@@ -5,12 +5,16 @@ import Trending from '../components/Trending'
 import Category from '../components/Category'
 import BestSeller from '../components/BestSeller'
 import PromotionBanner from '../components/PromotionBanner'
+import { useDispatch } from 'react-redux'
+import { fetchProducts } from '../features/productSlice'
 
 const Home = () => {
+  const dispatch = useDispatch()
 
   useEffect(()=>{
     window.scrollTo(0, 0)
     document.title = 'Ecommerce'
+    dispatch(fetchProducts())
   }, [])
 
   return (

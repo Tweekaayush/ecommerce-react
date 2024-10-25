@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux'
 
 const BestSeller = () => {
 
-    const {bestSellingProducts} = useSelector(state=>state.products.data)
+    const {loading, data: {bestSellingProducts}} = useSelector(state=>state.products)
+    
   return (
     <section id="bestseller">
         <div className="bestseller-container">
@@ -13,9 +14,17 @@ const BestSeller = () => {
             </h1>
             <div className="bestseller-list">
                 {
-                    bestSellingProducts?.map((product)=>{
-                        return <ProductCard2 key={product.id} {...product}/>
-                    })
+
+                    loading?(
+                        [1, 2, 3, 4 ,5 ,6].map((_, i)=>{
+                            return <div className="skeleton-card-2"></div>
+                        })
+                    ):(
+
+                        bestSellingProducts?.map((product)=>{
+                            return <ProductCard2 key={product.id} {...product}/>
+                        })
+                    )
                 }
             </div>
         </div>

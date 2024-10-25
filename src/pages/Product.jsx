@@ -4,7 +4,7 @@ import Trending from '../components/Trending'
 import { useParams } from 'react-router-dom'
 import ProductContent from '../components/ProductContent'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProductDetails } from '../features/productSlice'
+import { getProductDetails, fetchProducts } from '../features/productSlice'
 
 const Product = () => {
 
@@ -13,8 +13,9 @@ const Product = () => {
     const {productDetails} = useSelector(state=>state.products.data)
     
     useEffect(()=>{
-        dispatch(getProductDetails(id))
-        window.scrollTo(0, 0)
+      dispatch(fetchProducts())
+      dispatch(getProductDetails(id))
+      window.scrollTo(0, 0)
     }, [id])
 
     useEffect(()=>{
@@ -22,8 +23,8 @@ const Product = () => {
     }, [productDetails.title])
   return (
     <>
-        <ProductContent product = {productDetails}/>
-        <ProductDetails product = {productDetails}/>
+        <ProductContent />
+        <ProductDetails />
         <Trending />
     </>
   )

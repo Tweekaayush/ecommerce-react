@@ -7,7 +7,7 @@ const BrowseProducts = ({page, setPage}) => {
 
   const paginate = 6
   const [totalPages, settotalPages] = useState(1)
-  const {filteredProducts, productsLength} = useSelector(state=>state.products.data)
+  const {loading, data: {filteredProducts, productsLength}} = useSelector(state=>state.products)
 
   const handlePageChange = (e, p) =>{
     setPage(p)
@@ -22,9 +22,15 @@ const BrowseProducts = ({page, setPage}) => {
         <div className="browse-products-container">
             <div className="browse-product-grid">
                 {
-                    filteredProducts?.slice((page-1)*paginate, paginate * page).map((product)=>{
-                        return <ProductCard2 key={product.id} {...product}/>
+                  loading?(
+                    [1, 2, 3, 4, 5, 6, 7, 8].map((_, i)=>{
+                      return <div className="skeleton-card-2"></div>
                     })
+                  ):(
+                    filteredProducts?.slice((page-1)*paginate, paginate * page).map((product)=>{
+                      return <ProductCard2 key={product.id} {...product}/>
+                    })
+                  )
                 }
             </div>
             <div className="pagination-container">

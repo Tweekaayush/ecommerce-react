@@ -36,7 +36,6 @@ function App() {
 
   useEffect(()=>{
     handleBodyOverflow()
-    dispatch(fetchProducts())
   }, [cartStatus])
 
   useEffect(()=>{

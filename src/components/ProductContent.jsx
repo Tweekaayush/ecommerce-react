@@ -7,13 +7,14 @@ import { addToWishlist } from '../features/userSlice';
 import {toast, Bounce } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
 
-const ProductContent = ({product}) => {
+const ProductContent = () => {
 
-    const {title, description, price, ratings, img, otherImgs, id} = product
+    const {loading, data: { productDetails,  productDetails: {title, description, price, ratings, img, otherImgs, id}} } = useSelector(state=>state.products)
+    const {wishlist} = useSelector(state=>state.user.data)
+
     const dispatch = useDispatch()
     const [quantity, setQuantity] = useState(1)
     const [displayImg, setDisplayImg] = useState(img)
-    const {wishlist} = useSelector(state=>state.user.data)
     const [inWishlist,  setInWishlist] = useState(false)
 
 
@@ -30,7 +31,7 @@ const ProductContent = ({product}) => {
             transition: Bounce,
         });
 
-        dispatch(addToCart({...product, quantity: quantity }))
+        dispatch(addToCart({...productDetails, quantity: quantity }))
         
     }
 
@@ -48,7 +49,7 @@ const ProductContent = ({product}) => {
             transition: Bounce,
         });
 
-        dispatch(addToWishlist({...product}))
+        dispatch(addToWishlist({...productDetails}))
     }
 
     const checkWishlist = () =>{
@@ -75,51 +76,85 @@ const ProductContent = ({product}) => {
 
   return (
     <>
-    <section id="product-content">
-        <div className="product-content-container">
-            <div className="product-content-left">
-                <div className="product-img-display">
-                    <img src={displayImg} alt={title} />
-                </div>
-                <div className="product-img-list">
-                    <div key={img} className='product-img-item' onClick={()=>setDisplayImg(img)}>
-                        <img src={img} alt={title} />
+    {
+        loading?(
+            <section id="product-content">
+                <div className="product-content-container">
+                    <div className="product-content-left">
+                        <div className="product-img-display">
+                            <div className="skeleton-product-img"></div>
+                        </div>
+                        <div className="product-img-list">
+                            {
+                                [1, 2, 3].map((_, i)=>{
+                                    return <div className="skeleton-product-list-img"></div>
+                                })
+                            }
+                        </div>
                     </div>
-                    {
-                        otherImgs?.map((imgs)=>{
-                            return <div key={imgs} className='product-img-item' onClick={()=>setDisplayImg(imgs)}>
-                                        <img src={imgs} alt={title} />
-                                    </div>
-                        })
-                    }
+                    <div className="product-content-right">
+                        <div className="product-headers">
+                            <div className="skeleton-product-title"></div>
+                            <div className="skeleton-product-rating"></div>
+                        </div>
+                        <div className="skeleton-product-description"></div>
+                        <div className="skeleton-product-price"></div>
+                        <div className="skeleton-product-quantity"></div>
+                        <div className="product-btns">
+                            <div className="skeleton-product-btn"></div>
+                            <div className="skeleton-product-btn"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className="product-content-right">
-                <div className="product-headers">
-                    <h1>{title}</h1>
-                    <h2>
-                        {ratings} 
-                        {ratings && <Rating name='half-rating-read' value={ratings} precision={0.1} readOnly/>}
-                    </h2>
+            </section>
+        ):(
+            <section id="product-content">
+                <div className="product-content-container">
+                    <div className="product-content-left">
+                        <div className="product-img-display">
+                            <img src={displayImg} alt={title} />
+                        </div>
+                        <div className="product-img-list">                    
+                            <div key={img} className='product-img-item' onClick={()=>setDisplayImg(img)}>
+                                <img src={img} alt={title} />
+                            </div>
+                            {
+                                otherImgs?.map((imgs)=>{
+                                    return <div key={imgs} className='product-img-item' onClick={()=>setDisplayImg(imgs)}>
+                                            <img src={imgs} alt={title} />
+                                        </div>
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div className="product-content-right">
+                        <div className="product-headers">
+                            <h1>{title}</h1>
+                            <h2>
+                                {ratings} 
+                                {ratings && <Rating name='half-rating-read' value={ratings} precision={0.1} readOnly/>}
+                            </h2>
+                        </div>
+                        <p className="body-text">
+                            {description}
+                        </p>
+                        <p className="product-price">
+                            $ {price} 
+                        </p>
+                        <div className="product-quantity-container">
+                            <button onClick={()=>quantity !== 1?setQuantity(quantity-1):setQuantity(1)}>-</button>
+                            <p>{quantity}</p>
+                            <button onClick={()=>setQuantity(quantity + 1)}>+</button>
+                        </div>
+                        <div className="product-btns">
+                            <button onClick={handleAddToCart}> <ShoppingCart/> Add to cart</button>
+                            <button disabled={inWishlist} className={inWishlist?'product-in-wishlist':''} onClick={handleAddToWishlist}> <Favorite/> wishlist</button>
+                        </div>
+                    </div>
                 </div>
-                <p className="body-text">
-                    {description}
-                </p>
-                <p className="product-price">
-                    $ {price} 
-                </p>
-                <div className="product-quantity-container">
-                    <button onClick={()=>quantity !== 1?setQuantity(quantity-1):setQuantity(1)}>-</button>
-                    <p>{quantity}</p>
-                    <button onClick={()=>setQuantity(quantity + 1)}>+</button>
-                </div>
-                <div className="product-btns">
-                    <button onClick={handleAddToCart}> <ShoppingCart/> Add to cart</button>
-                    <button disabled={inWishlist} className={inWishlist?'product-in-wishlist':''} onClick={handleAddToWishlist}> <Favorite/> wishlist</button>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
+        )  
+    }
     </>
   )
 }

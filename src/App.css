@@ -148,6 +148,81 @@ ul{
   }
 }
 
+/* --------------------------------------- Skeleton --------------------------------------- */
+
+.skeleton-card-1{
+  min-width: 214px;
+  height: 344px;
+  display: flex;
+  animation: pulse 1.5s linear infinite alternate;
+}
+.skeleton-card-2{
+  width: 100%;
+  height: 390px;
+  min-height: 300px;
+  display: flex;
+  animation: pulse 1.5s linear infinite alternate;
+}
+
+.skeleton-category-item{
+  animation: pulse 1.5s linear infinite alternate;
+}
+
+.skeleton-product-img{
+  width: 100%;
+  aspect-ratio : 1 / 1;
+  animation: pulse 1.5s linear infinite alternate;
+}
+
+.skeleton-product-list-img{
+  width: 100px;
+  height: 100px;
+  animation: pulse 1.5s linear infinite alternate;
+}
+
+.skeleton-product-title{
+  width: 100%;
+  height: 25px;
+  animation: pulse 1.5s linear infinite alternate;
+}
+
+.skeleton-product-rating, .skeleton-product-price{
+  margin-top: 16px;
+  width: 100px;
+  height: 15px;
+  animation: pulse 1.5s linear infinite alternate;
+}
+
+.skeleton-product-description{
+  width: 100%;
+  aspect-ratio: 1 / .5;
+  animation: pulse 1.5s linear infinite alternate;
+}
+
+.skeleton-product-quantity{
+  margin-top: 16px;
+  margin-top: 16px;
+  width: 150px;
+  height: 30px;
+  animation: pulse 1.5s linear infinite alternate;
+}
+
+.skeleton-product-btn{
+  margin-top: 16px;
+  width: 100%;
+  height: 50px;
+  animation: pulse 1.5s linear infinite alternate;
+}
+
+@keyframes pulse {
+  0%{
+    background-color: var(--bg-color-2);
+  }
+  100%{
+    background-color: var(--text-color-4);
+  }
+}
+
 /* --------------------------------------- Loader --------------------------------------- */
 
 .loader{
@@ -628,6 +703,7 @@ ul{
 }
 
 .bestseller-list{
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
@@ -2443,6 +2519,35 @@ ul{
 .success-container > h1{
   font-size: 32px;
   color: var(--text-color-1);
+}
+
+/* --------------------------------------- Not Found Page --------------------------------- */
+
+.not-found-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  min-height: 85vh;
+  padding-bottom: 80px;
+}
+
+.not-found-container > h1{
+  font-size: 64px;
+  color: var(--text-color-1);
+}
+
+.not-found-container > h4{
+  font-size: 24px;
+  color: var(--text-color-4);
+}
+
+.not-found-container > p{
+  font-size: 18px;
+  color: var(--text-color-2);
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 /* --------------------------------------- Footer --------------------------------- */
