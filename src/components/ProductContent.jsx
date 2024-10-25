@@ -87,7 +87,7 @@ const ProductContent = () => {
                         <div className="product-img-list">
                             {
                                 [1, 2, 3].map((_, i)=>{
-                                    return <div className="skeleton-product-list-img"></div>
+                                    return <div key={i} className="skeleton-product-list-img"></div>
                                 })
                             }
                         </div>
@@ -116,12 +116,12 @@ const ProductContent = () => {
                         </div>
                         <div className="product-img-list">                    
                             <div key={img} className='product-img-item' onClick={()=>setDisplayImg(img)}>
-                                <img src={img} alt={title} />
+                                <img src={img} alt={title} loading='lazy'/>
                             </div>
                             {
                                 otherImgs?.map((imgs)=>{
                                     return <div key={imgs} className='product-img-item' onClick={()=>setDisplayImg(imgs)}>
-                                            <img src={imgs} alt={title} />
+                                            <img src={imgs} alt={title} loading='lazy' />
                                         </div>
                                 })
                             }

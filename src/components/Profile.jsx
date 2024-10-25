@@ -28,7 +28,7 @@ const Profile = () => {
         <div className="profile-container">
             <div className="profile-left-container">
               <div className="profile-header">
-                <img src={profileImg} alt={username} />
+                <img src={profileImg} alt={username} loading='lazy' />
               </div>
               <div className="profile-details">
                 <div>

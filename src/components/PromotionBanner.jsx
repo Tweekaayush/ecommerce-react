@@ -7,7 +7,7 @@ const PromotionBanner = () => {
     <section id="promotion">
         <div className="promotion-container">
             <div className="promotion-left-container">
-                <img src={banner} alt="" className="promotion-banner-img" />
+                <img src={banner} alt="" className="promotion-banner-img" loading='lazy'/>
             </div>
             <div className="promotion-right-container">
                 <h1>

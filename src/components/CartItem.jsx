@@ -38,7 +38,7 @@ const CartItem = ({img, title, price, quantity, id}) => {
   return (
     <div className="cart-item" onClick={()=>navigate(`/product/${id}`)}>
         <div className="cart-item-img">
-            <img src={img} alt={title} />
+            <img src={img} alt={title} loading='lazy' />
         </div>
         <div className="cart-middle">
             <h3>{title}</h3>

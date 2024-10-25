@@ -6,7 +6,7 @@ const OrderItem = ({img, title, quantity, price, purchase_date, order_status}) =
     <div className="order-item-container">
         <div>
             <div>
-                <img src={img} alt={title} />
+                <img src={img} alt={title} loading='lazy'/>
             </div>
             <p>{title}</p>
         </div>

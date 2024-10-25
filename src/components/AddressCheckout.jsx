@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import CartSummary from './CartSummary'
 import { updateUser } from '../features/userSlice'
 import DeliveryAddress from './DeliveryAddress'
+import {KeyboardArrowDown} from '@mui/icons-material';
+import { toast, Bounce } from 'react-toastify'
 
 const AddressCheckout = ({setCurrentStep, order, setOrder}) => {
 
@@ -15,7 +17,7 @@ const AddressCheckout = ({setCurrentStep, order, setOrder}) => {
     address_pincode: address.pincode,
     address_state: address.state
   })
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(address?.pincode === '')
 
   const handleChange = (e) =>{
     setFormData({...formData, [e.target.name]: e.target.value})
@@ -24,6 +26,28 @@ const AddressCheckout = ({setCurrentStep, order, setOrder}) => {
   const handleSubmit = (e) =>{
 
     e.preventDefault()
+
+    if(!(
+      formData.address_city !== '' &&
+      formData.address_town !== '' &&
+      formData.address_line !== '' &&
+      formData.address_pincode !== '' &&
+      formData.address_state !== ''
+    )){
+      toast.error('You cannot leave the address fields empty!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+      return
+    }
+
     dispatch(updateUser({address: {
       pincode: formData.address_pincode,
       city: formData.address_city,
@@ -38,6 +62,18 @@ const AddressCheckout = ({setCurrentStep, order, setOrder}) => {
     if(address.pincode){
       setOrder({...order, address: address, username: username, email:email})
       setCurrentStep(3)
+    }else{
+      toast.error('Please enter your address!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     }
   }
 
@@ -50,14 +86,29 @@ const AddressCheckout = ({setCurrentStep, order, setOrder}) => {
             {
               address?.pincode?<>Edit </>:<>Add </>
             }
-            Address</h4>
+            Address <KeyboardArrowDown style={open?{transform: 'rotate(-180deg)'}:{}}/></h4>
           <form onSubmit={handleSubmit} className={open?'address-form-active':''}>
             <div className='form-grid'>
-              <input type="text" name="address_pincode" value={formData.address_pincode} onChange={handleChange} placeholder='pincode' required/>
-              <input type="text" name="address_state" value={formData.address_state} onChange={handleChange} placeholder='state' required/>
-              <input type="text" name="address_city" value={formData.address_city} onChange={handleChange} placeholder='city' required/>
-              <input type="text" name="address_town" value={formData.address_town} onChange={handleChange} placeholder='Locality/Town' required/>
-              <input type="text" name="address_line" value={formData.address_line} onChange={handleChange} placeholder='House No., Apartment etc' required/>
+            <label htmlFor="">
+                <input type="text" name="address_line" value={formData.address_line} onChange={handleChange}/>
+                <span>Address Line 1</span>
+              </label>
+              <label htmlFor="">
+                <input type="text" name="address_state" value={formData.address_state} onChange={handleChange}/>
+                <span>State</span>
+              </label>
+              <label htmlFor="">
+                <input type="text" name="address_town" value={formData.address_town} onChange={handleChange}/>
+                <span>Locality / Town</span>
+              </label>
+              <label htmlFor="">
+                <input type="text" name="address_city" value={formData.address_city} onChange={handleChange}/>
+                <span>City</span>
+              </label>
+              <label htmlFor="">
+                <input type="text" name="address_pincode" value={formData.address_pincode} onChange={handleChange}/>
+                <span>Pincode</span>
+              </label>
             </div>
             <input type="submit" value="Save Address"/>
           </form>

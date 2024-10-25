@@ -47,7 +47,7 @@ const ProductCard3 = ({product}) => {
     <div className="product-card" onClick={()=>navigate(`/product/${id}`)}>
         <Close className='product-class-close' onClick={handleRemoveFromWishlist}/>
         <div className="product-card-head">
-            <img src={img} alt={title} className='product-card-img2'/>
+            <img src={img} alt={title} className='product-card-img2' loading='lazy'/>
         </div>
         <div className="product-card-content">
             <h3>{title}</h3>

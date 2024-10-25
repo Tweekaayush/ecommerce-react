@@ -7,7 +7,7 @@ const ProductCard = ({img, title, price, ratings, id}) => {
   return (
     <div className="product-card" onClick={()=>navigate(`/product/${id}`)}>
         <div className="product-card-head">
-            <img src={img} alt={title} className='product-card-img'/>
+            <img src={img} alt={title} className='product-card-img' loading='lazy'/>
         </div>
         <div className="product-card-content">
             <h3>{title}</h3>

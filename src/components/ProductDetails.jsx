@@ -13,7 +13,7 @@ const ProductDetails = () => {
                         <>
                             {
                                 [1, 2, 3].map((_, i)=>{
-                                    return <li>
+                                    return <li key={i}>
                                         <div className="skeleton-product-quantity"></div>
                                         <div className="skeleton-product-price"></div>
                                     </li>

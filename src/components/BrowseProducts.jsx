@@ -24,7 +24,7 @@ const BrowseProducts = ({page, setPage}) => {
                 {
                   loading?(
                     [1, 2, 3, 4, 5, 6, 7, 8].map((_, i)=>{
-                      return <div className="skeleton-card-2"></div>
+                      return <div key={i} className="skeleton-card-2"></div>
                     })
                   ):(
                     filteredProducts?.slice((page-1)*paginate, paginate * page).map((product)=>{

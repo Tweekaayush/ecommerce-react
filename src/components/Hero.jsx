@@ -24,7 +24,7 @@ const Hero = () => {
                 </button>
             </div>
             <div className="hero-right-container">
-                <img src={heroImg} alt="hero-img"/>
+                <img src={heroImg} alt="hero-img" loading='lazy'/>
             </div>
         </div>
     </section>
