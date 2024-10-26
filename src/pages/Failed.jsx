@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react'
 import { ErrorOutlineRounded } from '@mui/icons-material'
-import { useNavigate, useParams  } from 'react-router-dom'
+import { useNavigate  } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { updateOrders } from '../features/userSlice'
+import { setCurrentOrder } from '../features/userSlice'
 
 const Failed = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {id} = useParams()
 
   useEffect(()=>{
     window.scrollTo(0, 0)
     document.title = 'Order Confirmed'
-    dispatch(updateOrders(id))
+    dispatch(setCurrentOrder([]))
   }, [])  
   return (
     <section id="success">

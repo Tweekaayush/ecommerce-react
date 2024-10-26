@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createOrder } from '../features/userSlice'
+import { setCurrentOrder } from '../features/userSlice'
 import CheckoutCartList from './CheckoutCartList'
 import CartSummary from './CartSummary'
 import DeliveryAddress from './DeliveryAddress'
@@ -12,25 +12,9 @@ const Payment = ({order}) => {
   const dispatch = useDispatch()
   const order_id = uuidv4();
   const {email, address} = useSelector(state=>state.user.data)
+  const [updatedOrder, setUpdatedOrder] = useState([])
 
   const placeOrder = async() =>{
-    const date = new Date()
-    const fullDate = String(date.getUTCDate()+'/'+date.getUTCMonth()+ '/' +date.getUTCFullYear())
-
-    const updatedOrder = order.items.map((item)=>{
-      let id = uuidv4();
-      return {
-        ...item,
-        totalPrice: item.price*item.quantity,
-        purchase_date: fullDate,
-        order_status: 'Preparing to Dispatch',
-        id: id,
-        order_id: order_id
-      }
-    })
-    
-    dispatch(createOrder(updatedOrder))
-    
     try{
       const res = await fetch('http://localhost:8000/checkout', {
         method: 'POST',
@@ -49,8 +33,32 @@ const Payment = ({order}) => {
     }catch(e){
       console.log(e)
     }
-
   }
+
+  useEffect(()=>{
+    const updateOrder = () =>{
+      const date = new Date()
+      const fullDate = String(date.getUTCDate()+'/'+date.getUTCMonth()+ '/' +date.getUTCFullYear())
+  
+      const newOrder = order.items.map((item)=>{
+        let id = uuidv4();
+        return {
+          ...item,
+          totalPrice: item.price*item.quantity,
+          purchase_date: fullDate,
+          order_status: 'Preparing to Dispatch',
+          id: id,
+          order_id: order_id
+        }
+      })
+      
+      setUpdatedOrder(newOrder)
+      dispatch(setCurrentOrder(newOrder))
+    }
+    
+    console.log('hi')
+    updateOrder()
+  }, [order])
 
  
   return (

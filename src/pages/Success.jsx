@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react'
 import { CheckCircleOutline } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { createOrder } from '../features/userSlice'
 
 const Success = () => {
 
     const navigate = useNavigate()
-
-  useEffect(()=>{
-    window.scrollTo(0, 0)
-    document.title = 'Order Confirmed'
+    const dispatch = useDispatch()
+    const {current_order} = useSelector(state=>state.user.data)
+    
+    useEffect(()=>{
+      window.scrollTo(0, 0)
+      document.title = 'Order Confirmed'
+      dispatch(createOrder(current_order))
   }, [])  
   return (
     <section id="success">

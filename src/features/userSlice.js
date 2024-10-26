@@ -134,24 +134,25 @@ export const createOrder = createAsyncThunk('createOrder', async(payload, {getSt
 
     await setDoc(doc(collection(db, 'users'), state.data.uid), {
         ...state.data,
-        orders: newOrders
+        orders: newOrders,
+        current_order: []
     })
+
     dispatch(clearCart())
+
     return newOrders
 })
 
-export const updateOrders = createAsyncThunk('updateOrder', async(payload, {getState})=>{
-
-    const state = getState().user
+export const setCurrentOrder = createAsyncThunk('setCurrentOrder', async(payload, {getState})=>{
     
-    const newOrders = state.data.orders.filter((order)=>order.order_id !== payload)
+    const state = getState().user
+
     await setDoc(doc(collection(db, 'users'), state.data.uid), {
         ...state.data,
-        orders: newOrders
+        current_order: payload
     })
 
-    return newOrders
-
+    return payload
 })
 
 const userSlice = createSlice({
@@ -174,10 +175,7 @@ const userSlice = createSlice({
                 wishlist: [],
                 orders: [],
             }
-        },
-        clearCurrentOrder: (state, action)=>{
-            state.data.current_order = []
-        },
+        }
     },
     extraReducers: (builder)=>{
         builder.addCase(getUserDetails.pending, (state)=>{
@@ -185,13 +183,7 @@ const userSlice = createSlice({
         })
         builder.addCase(getUserDetails.fulfilled, (state, action)=>{
             state.loading = false
-            state.data.uid = action.payload.uid
-            state.data.username = action.payload.username
-            state.data.email = action.payload.email
-            state.data.profileImg = action.payload.profileImg
-            state.data.wishlist = action.payload.wishlist
-            state.data.orders = action.payload.orders
-            state.data.address = action.payload.address
+            state.data = {...action.payload}
         })
         builder.addCase(getUserDetails.rejected, (state, action)=>{
             state.loading = false
@@ -246,20 +238,20 @@ const userSlice = createSlice({
         })
         builder.addCase(createOrder.fulfilled, (state, action) =>{
             state.loading = false
-            state.data = {...state.data, orders: action.payload}
+            state.data = {...state.data, orders: action.payload, current_order: []}
         })
         builder.addCase(createOrder.rejected, (state, action) =>{
             state.loading = false
             state.error = action.payload
         })
-        builder.addCase(updateOrders.pending, (state) =>{
+        builder.addCase(setCurrentOrder.pending, (state) =>{
             state.loading = true
         })
-        builder.addCase(updateOrders.fulfilled, (state, action) =>{
+        builder.addCase(setCurrentOrder.fulfilled, (state, action) =>{
             state.loading = false
-            state.data = {...state.data, orders: action.payload}
+            state.data.current_order = [...action.payload]
         })
-        builder.addCase(updateOrders.rejected, (state, action) =>{
+        builder.addCase(setCurrentOrder.rejected, (state, action) =>{
             state.loading = false
             state.error = action.payload
         })
@@ -267,6 +259,6 @@ const userSlice = createSlice({
 })
 
 
-export const {setUser, signOutUser, clearCurrentOrder} = userSlice.actions
+export const {setUser, signOutUser } = userSlice.actions
 
 export default userSlice.reducer
